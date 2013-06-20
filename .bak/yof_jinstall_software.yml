@@ -1,0 +1,54 @@
+---
+- include: yof_get_bench_inventory.yml
+- include: yof_filter_unreachable.yml
+
+- hosts: "{{ hosts }}"
+  connection: local
+  gather_facts: False
+  vars_files:
+    - global_vars/images.yml
+    - global_vars/role_itags.yml
+ 
+  tasks:
+  - include: tasks/junos_get_facts.yml
+  - name: "Obtaining *should-have* software-image information"
+    action: set_fact 
+    args:
+      sw_image_should_ver: "{{ IMAGE_TAGS[ROLE_ITAGS[YOID_role]].version }}"
+      sw_image_should_file: "{{ IMAGE_TAGS[ROLE_ITAGS[YOID_role]].image }}"
+      sw_image_dir: "{{ IMAGE_DIR }}"
+
+  - name: "Comparing software-image *should-have* to *target-has*"
+    set_fact: sw_version_match_fact="{{ sw_image_should_ver == junos_facts['version'] }}"
+
+  - name: "Selecting targets for software-image install"
+    group_by: key=sw_version_match_{{ sw_version_match_fact }}
+
+# -------------------------------------------------------------------
+# These hosts do NOT need to have software upgraded
+# -------------------------------------------------------------------
+
+- hosts: sw_version_match_True
+  connection: local
+  gather_facts: False
+  tasks:
+  - name: "This host does not need to have software upgraded"
+    debug: msg="{{ inventory_hostname }}"
+
+# -------------------------------------------------------------------
+# These hosts need to have software upgraded
+# -------------------------------------------------------------------
+
+- hosts: sw_version_match_False
+  connection: local
+  gather_facts: False
+  tasks:
+  - name: "Installing Junos software, this may take a while, please be patient"
+    action: junos_install_image 
+    args:
+      invhostname: "{{ inventory_hostname }}"
+      target: "{{ target_ipaddr }}"
+      filename: "{{ sw_image_should_file }}"
+      dir: "{{ sw_image_dir }}"
+      reboot: True
+

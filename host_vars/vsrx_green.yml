@@ -1,0 +1,12 @@
+---
+PERSONA: vsrx_dmz
+
+MY_MGMT_IPADDR: 192.168.56.4
+MY_MGMT_GWADDR: 192.168.56.1
+  
+DMZ_ports:
+  ge-0/0/1:
+    - { v: 409, a: 10.79.247.1/24, d: Pool A of webservers }
+    - { v: 400, a: 23.71.2.1/24,   d: Pool B of webservers }
+    - { v: 407, a: 23.71.8.1/23,   d: Pool C of webservers }
+

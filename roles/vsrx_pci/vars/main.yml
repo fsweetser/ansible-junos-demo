@@ -1,0 +1,4 @@
+---
+template_files: 
+  - roles/vsrx_shared/templates/*.j2
+  - roles/vsrx_pci/templates/*.j2

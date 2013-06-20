@@ -1,0 +1,10 @@
+---
+- hosts: [ex4]
+  gather_facts: False
+
+  tasks:
+  - name: "Shutting down Junos device ..."
+    local_action: junos_shutdown
+    args:
+       target: "{{ inventory_hostname }}"
+

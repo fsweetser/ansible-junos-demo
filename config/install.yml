@@ -1,0 +1,11 @@
+---
+- hosts: all
+  name: Installing Junos initial configuration
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Pushing config ... please wait 
+      junos_install_config: >
+        host={{ inventory_hostname }}
+        file=/usr/local/junos/configs/{{ inventory_hostname }}/junos.conf
+        override=True

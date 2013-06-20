@@ -1,0 +1,12 @@
+---
+PERSONA: vsrx_pci
+
+MY_MGMT_IPADDR: 192.168.56.3
+MY_MGMT_GWADDR: 192.168.56.1
+  
+PCI_ports:
+  ge-0/0/1:
+    - { v: 209, a: 10.99.247.1/24,  d: Pool A of visa servers }
+    - { v: 200, a: 23.191.2.1/24,   d: Pool B of visa servers }
+    - { v: 207, a: 23.181.8.1/23,   d: Pool C of visa servers }
+

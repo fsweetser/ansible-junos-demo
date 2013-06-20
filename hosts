@@ -1,0 +1,12 @@
+[all:vars]
+junos_os_tag=firefly_production
+reboot_wait_time=10
+
+[dc_west]
+vsrx_black     
+vsrx_red 
+
+[dc_east]
+vsrx_green
+vsrx_blue
+

@@ -1,0 +1,12 @@
+snmp {
+  location "{{ GROUP_GLOBALS.location }}";
+  community {{ BOOKOFSECRETS.SNMP_community }} {
+    authorization read-only;
+    clients {
+      default restrict;
+{% for client in SYSTEM_GLOBALS.SNMP_client_prefixlist %}
+      {{ client }};
+{% endfor %}
+    }
+  }
+}

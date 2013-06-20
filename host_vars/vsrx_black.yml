@@ -1,0 +1,13 @@
+---
+PERSONA: vsrx_dmz
+
+MY_MGMT_IPADDR: 192.168.56.2
+MY_MGMT_GWADDR: 192.168.56.1
+  
+DMZ_ports:
+  ge-0/0/1:
+    - { v: 109, a: 10.179.247.1/24, d: Pool A of mailserver }
+    - { v: 300, a: 23.171.2.1/24,   d: Pool B of mailservers, s: ['ping', 'traceroute'] }
+    - { v: 307, a: 23.171.8.1/23,   d: Pool C of mailservers, s: ['ping'] }
+    - { v: 100, a: 1.1.1.1/24 }
+    - { v: 101, a: 2.2.2.2/24 }

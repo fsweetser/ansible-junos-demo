@@ -1,0 +1,26 @@
+---
+- hosts: "{{ hosts }}"
+  connection: local
+  gather_facts: False
+
+  tasks:
+  - name: "Say my hostname!"
+    debug: msg="Hello {{ inventory_hostname }}"
+  - name: "binding my role!"
+    group_by: key="{{ YOID_role }}"
+
+### -----------------------------------------------------------------
+
+- include: yocow_fw.yml
+- include: yocow_foh.yml
+- include: yocow_boh.yml
+
+### -----------------------------------------------------------------
+
+- hosts: "{{ hosts }}"
+  connection: local
+  gather_facts: False
+  tasks:
+  - name: "All done!"
+    debug: msg="That's all folks for {{ inventory_hostname }}"
+

@@ -1,0 +1,45 @@
+security {
+  policies {
+    from-zone trust to-zone trust {
+        policy allow-all {
+            match {
+                source-address any;
+                destination-address any;
+                application any;
+            }
+            then {
+                permit;
+            }
+        }
+    }
+  }
+  zones {
+    security-zone trust {
+        host-inbound-traffic {
+            system-services {
+                all;
+            }
+            protocols {
+                all;
+            }
+        }
+    }
+  }
+  zones {
+     functional-zone {
+       management {
+         host-inbound-traffic {
+           system-services {
+                all;
+           }
+           protocols {
+              all;
+           }
+         }
+         interfaces {
+            ge-0/0/0.0;
+         }
+       }
+     }
+  }
+}

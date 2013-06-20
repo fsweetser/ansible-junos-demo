@@ -1,0 +1,36 @@
+---
+### ---------------------------------------------------------------
+### deploy.yml
+### ---------------------------------------------------------------
+###
+###   1. check reachability via NETCONF
+###   2. upgrade Junos OS if necessary; reboot & wait for restart
+###   3. template build device specific Junos configuration
+###   4. load/override the Junos configuration file
+###
+### ---------------------------------------------------------------
+
+### -----------------------------------------------------------------
+###    First ensure the hosts are reachable via the NETCONF protocol
+### -----------------------------------------------------------------
+
+- include: junos/nc_ready.yml timeout=1
+
+### -----------------------------------------------------------------
+### Install Junos OS on devices that need it
+### -----------------------------------------------------------------
+
+- include: junos/install_os.yml
+    
+### -----------------------------------------------------------------
+### Now generate the target specific junos.conf initial config
+### and install it on the target
+### -----------------------------------------------------------------
+
+- include: config/make.yml
+- include: config/install.yml
+
+
+      
+      
+      

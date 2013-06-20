@@ -1,0 +1,19 @@
+---
+- hosts: "{{ hosts }}"
+  connection: local
+  gather_facts: False
+  vars:
+     loomdir: "{{ lookup('env','LOOM_HOME') }}"
+
+  tasks:
+  - name: "Dumping hostname ..."
+    debug: msg="Hello, there {{inventory_hostname}} = {{ Hostname }}"
+
+  - name: "Dumping something from pod-7"
+    debug: msg="filter = {{Loopback_filter}}"
+
+  - name: "Dumping something from global"
+    debug: msg="domain-name = {{ Domain_Name }}"
+
+  - name: "Creating configuration from template - system.j2"
+    template: src={{loomdir}}/templates/system.j2 dest=/var/tmp/system.conf

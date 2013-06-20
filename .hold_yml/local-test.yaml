@@ -1,0 +1,10 @@
+---
+- hosts: [srx210, ex4]
+  gather_facts: False
+
+  tasks:
+  - name: "grabbing the Junos device facts"
+    local_action: get_junos_facts
+    args:
+       target: "{{ inventory_hostname }}"
+

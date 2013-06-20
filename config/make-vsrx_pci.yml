@@ -1,0 +1,11 @@
+---
+- hosts: vsrx_pci
+  connection: local
+  gather_facts: no
+  vars_files:
+    - roles/vsrx_shared/vars/bookofsecrets.yml
+  roles:
+    - vsrx_shared
+    - vsrx_pci
+  tasks:
+    - include: tasks/make_junos_conf.yml

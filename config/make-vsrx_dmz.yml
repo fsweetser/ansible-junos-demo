@@ -1,0 +1,11 @@
+---
+- hosts: vsrx_dmz
+  connection: local
+  gather_facts: False
+  vars_files:
+    - roles/vsrx_shared/vars/bookofsecrets.yml
+  roles:
+    - vsrx_shared
+    - vsrx_dmz
+  tasks:
+    - include: tasks/make_junos_conf.yml

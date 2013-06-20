@@ -1,0 +1,10 @@
+---
+- hosts: yocow_boh
+  connection: local
+  gather_facts: False
+  roles:
+    - shared
+    - yocow_shared
+    - yocow_boh
+  tasks:
+    - include: tasks/config_builder.yml YOID_brand=yocow YOID_role=boh

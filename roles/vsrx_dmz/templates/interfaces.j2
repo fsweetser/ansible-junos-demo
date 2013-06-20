@@ -1,0 +1,23 @@
+###
+### DMZ interfaces
+###
+interfaces {
+  {% for ifd in DMZ_ports %}
+  {% set ifd_units = DMZ_ports[ifd] %}
+  
+  {{ ifd }} { 
+    vlan-tagging;
+{% for unit in ifd_units %}
+    unit {{ unit.v }} {
+{%- if unit.d %}  
+      description "{{ unit.d }}"; 
+{%- endif %} 
+      vlan-id {{ unit.v }};
+      family inet {
+        address {{ unit.a }};
+      }
+    } 
+{% endfor %}    
+  } 
+{% endfor %}  
+}

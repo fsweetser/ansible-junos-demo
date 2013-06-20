@@ -1,0 +1,24 @@
+vlans {
+  default {
+    vlan-id 1;
+  }
+{% for vlan_name, vlan_info in VLANS.iteritems() %}
+  {{ vlan_name }} {
+    description "{{ vlan_info.description }}";
+{% if vlan_name == "Management" %}
+    l3-interface vlan.{{ vlan_info.vlan_tag }}; 
+{% endif %}
+    vlan-id {{ vlan_info.vlan_tag }};
+  }
+{% endfor %}
+}
+
+interfaces {
+  vlan {
+    unit 2 {
+      family inet {
+        address {{ HOST_IPADDRS.my_ipaddr_prefix }};
+      }
+    }
+  }
+}

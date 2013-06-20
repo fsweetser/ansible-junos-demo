@@ -1,0 +1,65 @@
+### This is the system section
+
+system {
+  host-name {{ inventory_hostname }};
+  domain-name {{ SYSTEM_GLOBALS.domain_name }};
+  time-zone {{ GROUP_GLOBALS.time_zone }};
+  root-authentication {
+    encrypted-password "{{ BOOKOFSECRETS.ROOT }}";
+  }
+  login {
+    message {{ SYSTEM_GLOBALS.login_banner }};
+    class superuser {
+      idle-timeout 10;
+    }
+  }
+  inactive: tacplus-server {
+{% for server in SYSTEM_GLOBALS.TACACS %}
+    {{ server }} {
+      port 49;
+      secret "{{ BOOKOFSECRETS[server] }}";
+      timeout 5;
+      single-connection;
+      source-address {{ MY_MGMT_IPADDR }};
+    }
+{% endfor %}
+  }
+  inactive: tacplus-options {
+    service-name junos-exec;
+    exclude-cmd-attribute;
+  }
+  inactive: accounting {
+    events [ login change-log interactive-commands ];
+    destination {
+      tacplus {
+        server {
+{% for server in SYSTEM_GLOBALS.TACACS %}        
+          {{ server }} {
+            secret "{{ BOOKOFSECRETS[server] }}";
+            single-connection;
+            source-address {{ MY_MGMT_IPADDR }};
+          }
+{% endfor %}
+        }
+      }
+    }
+  }
+  inactive: ntp {
+    authentication-key 111 type md5 value "{{ BOOKOFSECRETS.NTP }}";
+    boot-server {{ SYSTEM_GLOBALS.NTP.boot_server }};
+{% for server in SYSTEM_GLOBALS.NTP.servers %}
+    server {{ server }};
+{% endfor %}
+  }
+  services {
+    ssh;
+    netconf {
+      ssh;
+    }
+  }
+  syslog {
+    file messages {
+      any notice;
+    }
+  }
+}

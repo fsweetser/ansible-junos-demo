@@ -1,0 +1,15 @@
+groups {
+  STAGING {
+    interfaces {
+      me0 {
+        unit 0 {
+          family inet {
+            dhcp;
+          }
+        }
+      }
+    }
+  }
+}
+
+apply-groups STAGING;

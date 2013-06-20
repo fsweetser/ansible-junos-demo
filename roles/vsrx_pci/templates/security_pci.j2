@@ -1,0 +1,26 @@
+security {
+  zones {
+    security-zone PCI {
+      interfaces {
+{% for ifd in PCI_ports %}
+{% set ifd_units = PCI_ports[ifd] %}
+{% for unit in ifd_units %}
+{% if unit.s %}       
+        {{ ifd }}.{{ unit.v }} {
+           host-inbound-traffic {
+             system-services {
+{% for svc in unit.s %}
+               {{ svc }};
+{% endfor %}
+             }
+           }
+        }
+{% else %}
+        {{ ifd }}.{{ unit.v }};
+{% endif -%}
+{% endfor %}
+      } 
+{% endfor %}
+    }
+  }
+}

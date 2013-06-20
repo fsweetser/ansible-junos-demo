@@ -1,0 +1,10 @@
+---
+- hosts: "{{ hosts }}"
+  connection: local
+  gather_facts: False
+  tasks:
+  - name: "Obtaining host target IP address"
+    set_fact: target_ipaddr="{{ hostvars['staging-switch'].bench_inventory[YOID_role]['ipaddr'] }}"
+  - name: 'Removing unreacable hosts'
+    fail: msg="{{ inventory_hostname }} does not have an IPaddr at this time"
+    when: target_ipaddr == "False"

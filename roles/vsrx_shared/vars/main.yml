@@ -1,0 +1,24 @@
+---
+SYSTEM_GLOBALS:
+  
+  domain_name: workflowsherpas.com
+
+  SNMP_client_prefixlist:
+    - 192.168.10.0/24
+    - 192.168.11.0/24
+    - 192.168.12.0/24
+    
+  TACACS:
+    - 192.168.10.89
+  
+  NTP:
+    boot_server: 192.168.10.89
+    servers:
+      - 192.168.10.89
+   
+  login_banner: >   
+    "\n This is a secured device.\n
+    Unauthorized use is prohibited by law.\n
+    All activities performed on this device may be logged,\n
+    and violations of this policy may result in disciplinary action,\n
+    and may be reported to law enforcement.\n"

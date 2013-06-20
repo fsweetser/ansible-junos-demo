@@ -1,0 +1,13 @@
+---
+- hosts: all
+  name: Creating initial Junos configuration
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Grouping builds by 'PERSONA' variable
+      group_by: key="{{ PERSONA }}"
+
+### -----------------------------------------------------------------
+
+- include: make-vsrx_dmz.yml
+- include: make-vsrx_pci.yml

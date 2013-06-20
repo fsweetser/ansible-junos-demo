@@ -1,0 +1,9 @@
+---
+- hosts: all
+  name: Rollback to Junos rescue configuration
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: rollback rescue
+      junos_rescue: host="{{ inventory_hostname }}"
+

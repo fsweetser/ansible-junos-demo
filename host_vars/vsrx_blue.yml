@@ -1,0 +1,12 @@
+---
+PERSONA: vsrx_pci
+
+MY_MGMT_IPADDR: 192.168.56.5
+MY_MGMT_GWADDR: 192.168.56.1
+  
+PCI_ports:
+  ge-0/0/1:
+    - { v: 1209, a: 10.18.247.1/24, d: Pool A of mastercard servers }
+    - { v: 1200, a: 23.53.2.1/24,   d: Pool B of mastercard servers }
+    - { v: 1207, a: 23.77.8.1/23,   d: Pool C of mastercard servers }
+

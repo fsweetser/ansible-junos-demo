@@ -1,0 +1,17 @@
+---
+- include: yof_get_bench_inventory.yml
+- include: yof_filter_unreachable.yml
+  
+- hosts: "{{ hosts }}"
+  connection: local
+  gather_facts: False
+  vars_files:
+    - global_vars/images.yml
+    - global_vars/role_itags.yml  
+  tasks:
+    - include: tasks/junos_get_facts.yml
+  
+        
+
+
+
