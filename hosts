@@ -1,5 +1,5 @@
 [all:vars]
-junos_os_tag=firefly_production
+junos_os_tag=firewall_production
 reboot_wait_time=10
 
 [dc_west]

@@ -1,0 +1,32 @@
+---
+PACKAGE_DIR: /usr/local/junos/packages
+
+PACKAGE_TAGS:
+      
+  # -------------------------------------------------------------------
+  # Firewall (SRX-branch) image tags
+  # -------------------------------------------------------------------
+
+  firewall_production:
+    version: 12.1X44-D10.4       
+    package: junos-srxsme-12.1X44-D10.4-domestic.tgz
+
+  firewall_systest:
+    version: 12.1R6.5
+    package: junos-srxsme-12.1R6.5-domestic.tgz
+
+  # -------------------------------------------------------------------
+  # Switch (EX2200) image tags
+  # -------------------------------------------------------------------
+
+  switch_production:
+    version: 12.2R4.5
+    package: jinstall-ex-2200-12.2R4.5-domestic-signed.tgz
+    
+  switch_systest:
+    version: 12.2R3.5
+    package: jinstall-ex-2200-12.2R3.5-domestic-signed.tgz
+
+
+    
+    
